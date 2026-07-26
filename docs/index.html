@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ytmeta - YouTube Metadata Viewer</title>
+  <meta name="description" content="CLI tool and web app for viewing YouTube video metadata." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #0a0a0b;
+      --bg-card: #141416;
+      --bg-card-hover: #1a1a1e;
+      --border: #232328;
+      --text: #efeff1;
+      --text-dim: #71717a;
+      --blue: #3b82f6;
+      --green: #22c55e;
+      --yellow: #eab308;
+      --magenta: #d946ef;
+      --cyan: #06b6d4;
+      --red: #ef4444;
+      --mono: 'JetBrains Mono', monospace;
+      --sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    }
+
+    html { background: var(--bg); color: var(--text); font-family: var(--sans); scroll-behavior: smooth; }
+    body { overflow-x: hidden; }
+
+    a { color: var(--blue); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .container { max-width: 900px; margin: 0 auto; padding: 0 24px; }
+
+    /* ── Nav ──────────────────────────────────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(10,10,11,0.85); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    nav .inner {
+      max-width: 900px; margin: 0 auto; padding: 0 24px;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 56px;
+    }
+    nav .brand {
+      font-family: var(--mono); font-weight: 700; font-size: 1.1rem;
+      background: var(--blue); color: #fff; padding: 3px 10px; border-radius: 5px;
+    }
+    nav .links { display: flex; gap: 24px; }
+    nav .links a {
+      color: var(--text-dim); font-size: 0.85rem; font-weight: 500;
+      transition: color 0.2s;
+    }
+    nav .links a:hover { color: var(--text); text-decoration: none; }
+
+    /* ── Hero ─────────────────────────────────────────────────────────── */
+    .hero {
+      padding: 140px 0 80px; text-align: center;
+      background: radial-gradient(ellipse at 50% 0%, rgba(59,130,246,0.08) 0%, transparent 60%);
+    }
+    .hero h1 {
+      font-size: clamp(2.4rem, 6vw, 3.8rem); font-weight: 800;
+      letter-spacing: -1px; line-height: 1.15;
+    }
+    .hero h1 .hl { color: var(--blue); }
+    .hero p {
+      margin-top: 16px; color: var(--text-dim); font-size: 1.1rem;
+      max-width: 520px; margin-left: auto; margin-right: auto;
+    }
+    .hero-btns {
+      margin-top: 32px; display: flex; gap: 12px;
+      justify-content: center; flex-wrap: wrap;
+    }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 12px 28px; border-radius: 10px; font-weight: 600;
+      font-size: 0.95rem; transition: all 0.2s; border: none; cursor: pointer;
+    }
+    .btn-primary { background: var(--blue); color: #fff; }
+    .btn-primary:hover { background: #2563eb; text-decoration: none; }
+    .btn-secondary {
+      background: var(--bg-card); color: var(--text); border: 1px solid var(--border);
+    }
+    .btn-secondary:hover { background: var(--bg-card-hover); text-decoration: none; }
+
+    /* ── Section ──────────────────────────────────────────────────────── */
+    section { padding: 80px 0; }
+    section + section { border-top: 1px solid var(--border); }
+    .section-title {
+      font-size: 1.6rem; font-weight: 700; margin-bottom: 12px;
+    }
+    .section-sub {
+      color: var(--text-dim); font-size: 0.95rem; margin-bottom: 36px;
+    }
+
+    /* ── Features Grid ────────────────────────────────────────────────── */
+    .features {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+    }
+    .feature-card {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 24px;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .feature-card:hover {
+      border-color: var(--blue); background: var(--bg-card-hover);
+    }
+    .feature-icon {
+      width: 36px; height: 36px; border-radius: 8px; margin-bottom: 14px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem;
+    }
+    .feature-card h3 { font-size: 0.95rem; font-weight: 600; margin-bottom: 6px; }
+    .feature-card p { color: var(--text-dim); font-size: 0.85rem; line-height: 1.5; }
+
+    /* ── Terminal ─────────────────────────────────────────────────────── */
+    .terminal {
+      background: #0d0d0f; border: 1px solid var(--border); border-radius: 12px;
+      overflow: hidden;
+    }
+    .terminal-bar {
+      display: flex; align-items: center; gap: 6px;
+      padding: 12px 16px; background: #141416; border-bottom: 1px solid var(--border);
+    }
+    .terminal-dot { width: 10px; height: 10px; border-radius: 50%; }
+    .terminal-dot.r { background: #ef4444; }
+    .terminal-dot.y { background: #eab308; }
+    .terminal-dot.g { background: #22c55e; }
+    .terminal-title {
+      margin-left: 8px; color: var(--text-dim); font-size: 0.75rem;
+      font-family: var(--mono);
+    }
+    .terminal pre {
+      padding: 20px; overflow-x: auto; font-family: var(--mono);
+      font-size: 0.82rem; line-height: 1.7;
+    }
+    .t-prompt { color: var(--green); }
+    .t-flag { color: var(--cyan); }
+    .t-url { color: var(--yellow); }
+    .t-dim { color: var(--text-dim); }
+    .t-blue { color: var(--blue); }
+    .t-green { color: var(--green); }
+    .t-yellow { color: var(--yellow); }
+    .t-magenta { color: var(--magenta); }
+    .t-red { color: var(--red); }
+    .t-cyan { color: var(--cyan); }
+
+    /* ── Install ──────────────────────────────────────────────────────── */
+    .install-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+    }
+    @media (max-width: 600px) { .install-grid { grid-template-columns: 1fr; } }
+    .install-card {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 24px;
+    }
+    .install-card h3 {
+      font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.5px;
+      color: var(--text-dim); margin-bottom: 12px;
+    }
+    .install-card code {
+      display: block; background: #0d0d0f; border: 1px solid var(--border);
+      border-radius: 8px; padding: 12px 16px; font-family: var(--mono);
+      font-size: 0.85rem; color: var(--green); overflow-x: auto;
+    }
+
+    /* ── Options Table ────────────────────────────────────────────────── */
+    .opts-table {
+      width: 100%; border-collapse: collapse; font-size: 0.88rem;
+    }
+    .opts-table th {
+      text-align: left; padding: 10px 14px; color: var(--text-dim);
+      font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px;
+      border-bottom: 1px solid var(--border);
+    }
+    .opts-table td {
+      padding: 10px 14px; border-bottom: 1px solid var(--border);
+    }
+    .opts-table td:first-child { font-family: var(--mono); color: var(--cyan); white-space: nowrap; }
+
+    /* ── Footer ───────────────────────────────────────────────────────── */
+    footer {
+      padding: 40px 0; text-align: center; color: var(--text-dim);
+      font-size: 0.8rem; border-top: 1px solid var(--border);
+    }
+
+    /* ── Animate ──────────────────────────────────────────────────────── */
+    .fade-in {
+      opacity: 0; transform: translateY(20px);
+      transition: opacity 0.5s, transform 0.5s;
+    }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="inner">
+    <span class="brand">ytmeta</span>
+    <div class="links">
+      <a href="#features">Features</a>
+      <a href="#demo">Demo</a>
+      <a href="#install">Install</a>
+      <a href="https://github.com/Alyetama/youtubeMetadata" target="_blank">GitHub</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ── Hero ─────────────────────────────────────────────────────────── -->
+<section class="hero">
+  <div class="container">
+    <h1><span class="hl">ytmeta</span><br/>YouTube Metadata Viewer</h1>
+    <p>Video metadata from the terminal or your browser. Statistics, codecs, chapters, subtitles, tags, and more.</p>
+    <div class="hero-btns">
+      <a href="https://github.com/Alyetama/youtubeMetadata" class="btn btn-primary" target="_blank">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+        View on GitHub
+      </a>
+      <a href="#install" class="btn btn-secondary">Get Started</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── Features ─────────────────────────────────────────────────────── -->
+<section id="features">
+  <div class="container">
+    <h2 class="section-title">Features</h2>
+    <p class="section-sub">The terminal and web versions show the same metadata, just formatted differently.</p>
+    <div class="features">
+      <div class="feature-card fade-in">
+        <div class="feature-icon" style="background:rgba(59,130,246,0.12);color:var(--blue);">📊</div>
+        <h3>Statistics</h3>
+        <p>Views, likes, comments, and estimated watch hours, formatted with K/M abbreviations.</p>
+      </div>
+      <div class="feature-card fade-in">
+        <div class="feature-icon" style="background:rgba(234,179,8,0.12);color:var(--yellow);">⚙️</div>
+        <h3>Technical Details</h3>
+        <p>Resolution, FPS, codecs, bitrate, and file size for the selected format.</p>
+      </div>
+      <div class="feature-card fade-in">
+        <div class="feature-icon" style="background:rgba(6,182,212,0.12);color:var(--cyan);">📝</div>
+        <h3>Subtitles & Captions</h3>
+        <p>Manual subtitles and auto-generated captions listed by language with available formats.</p>
+      </div>
+      <div class="feature-card fade-in">
+        <div class="feature-icon" style="background:rgba(34,197,94,0.12);color:var(--green);">🎬</div>
+        <h3>Chapters</h3>
+        <p>Video chapters with timestamps and durations.</p>
+      </div>
+      <div class="feature-card fade-in">
+        <div class="feature-icon" style="background:rgba(239,68,68,0.12);color:var(--red);">🏷️</div>
+        <h3>Tags</h3>
+        <p>All video tags displayed as colored pills.</p>
+      </div>
+      <div class="feature-card fade-in">
+        <div class="feature-icon" style="background:rgba(217,70,239,0.12);color:var(--magenta);">🌐</div>
+        <h3>Web UI</h3>
+        <p>Dark-themed browser interface with metadata panels, thumbnail banner, and formats table.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Demo ─────────────────────────────────────────────────────────── -->
+<section id="demo">
+  <div class="container">
+    <h2 class="section-title">Demo</h2>
+    <p class="section-sub">Pass a YouTube URL and get structured metadata.</p>
+
+    <div class="terminal fade-in">
+      <div class="terminal-bar">
+        <span class="terminal-dot r"></span>
+        <span class="terminal-dot y"></span>
+        <span class="terminal-dot g"></span>
+        <span class="terminal-title">terminal</span>
+      </div>
+<pre>
+<span class="t-prompt">$</span> ytmeta <span class="t-url">https://www.youtube.com/watch?v=dQw4w9WgXcQ</span>
+
+  <span class="t-dim">ytmeta</span>    Rick Astley - Never Gonna Give You Up (Official Video)
+
+<span class="t-blue">╭──────────────────────────── Overview ─────────────────────────────╮</span>
+<span class="t-blue">│</span> <span class="t-cyan">Channel</span>         Rick Astley                                    <span class="t-blue">│</span>
+<span class="t-blue">│</span> <span class="t-cyan">Upload Date</span>     October 25, 2009                               <span class="t-blue">│</span>
+<span class="t-blue">│</span> <span class="t-cyan">Duration</span>        3m 33s                                         <span class="t-blue">│</span>
+<span class="t-blue">│</span> <span class="t-cyan">Video ID</span>        dQw4w9WgXcQ                                    <span class="t-blue">│</span>
+<span class="t-blue">╰──────────────────────────────────────────────────────────────────╯</span>
+
+<span class="t-green">╭─────────────────────── Statistics ───────────────────────────────╮</span>
+<span class="t-green">│</span> <span class="t-cyan">Views</span>           1796.6M                                        <span class="t-green">│</span>
+<span class="t-green">│</span> <span class="t-cyan">Likes</span>           19.3M                                          <span class="t-green">│</span>
+<span class="t-green">│</span> <span class="t-cyan">Comments</span>        2.4M                                           <span class="t-green">│</span>
+<span class="t-green">╰──────────────────────────────────────────────────────────────────╯</span>
+
+<span class="t-yellow">╭─────────────────── Technical Details ────────────────────────────╮</span>
+<span class="t-yellow">│</span> <span class="t-cyan">Resolution</span>      3840x2160                                      <span class="t-yellow">│</span>
+<span class="t-yellow">│</span> <span class="t-cyan">FPS</span>             25                                             <span class="t-yellow">│</span>
+<span class="t-yellow">│</span> <span class="t-cyan">Video Codec</span>     av01.0.12M.08                                  <span class="t-yellow">│</span>
+<span class="t-yellow">│</span> <span class="t-cyan">Audio Codec</span>     opus                                           <span class="t-yellow">│</span>
+<span class="t-yellow">│</span> <span class="t-cyan">Total Bitrate</span>   9154 kbps                                      <span class="t-yellow">│</span>
+<span class="t-yellow">│</span> <span class="t-cyan">File Size</span>       232.5 MB                                       <span class="t-yellow">│</span>
+<span class="t-yellow">╰──────────────────────────────────────────────────────────────────╯</span>
+</pre>
+    </div>
+
+    <div style="height:24px"></div>
+
+    <div class="terminal fade-in">
+      <div class="terminal-bar">
+        <span class="terminal-dot r"></span>
+        <span class="terminal-dot y"></span>
+        <span class="terminal-dot g"></span>
+        <span class="terminal-title">json mode</span>
+      </div>
+<pre>
+<span class="t-prompt">$</span> ytmeta <span class="t-flag">-j</span> <span class="t-url">https://www.youtube.com/watch?v=dQw4w9WgXcQ</span>
+{
+  <span class="t-green">"title"</span>: <span class="t-yellow">"Rick Astley - Never Gonna Give You Up"</span>,
+  <span class="t-green">"channel"</span>: <span class="t-yellow">"Rick Astley"</span>,
+  <span class="t-green">"view_count"</span>: <span class="t-magenta">1796591936</span>,
+  <span class="t-green">"like_count"</span>: <span class="t-magenta">19278431</span>,
+  <span class="t-green">"duration"</span>: <span class="t-magenta">213</span>,
+  <span class="t-green">"tags"</span>: [<span class="t-yellow">"rick astley"</span>, <span class="t-yellow">"Never Gonna Give You Up"</span>, ...]
+}
+</pre>
+    </div>
+  </div>
+</section>
+
+<!-- ── CLI Options ──────────────────────────────────────────────────── -->
+<section id="options">
+  <div class="container">
+    <h2 class="section-title">CLI Options</h2>
+    <p class="section-sub">Filter and control the output with these flags.</p>
+    <table class="opts-table fade-in">
+      <thead><tr><th>Flag</th><th>Description</th></tr></thead>
+      <tbody>
+        <tr><td>-j, --json</td><td>Output raw metadata as JSON</td></tr>
+        <tr><td>--stats-only</td><td>Show only views, likes, comments</td></tr>
+        <tr><td>--tags-only</td><td>Show only tags</td></tr>
+        <tr><td>--chapters-only</td><td>Show only chapter information</td></tr>
+        <tr><td>--no-subtitles</td><td>Hide subtitles/captions panel</td></tr>
+        <tr><td>--no-formats</td><td>Hide the available formats table</td></tr>
+        <tr><td>--no-description</td><td>Hide the description panel</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ── Install ──────────────────────────────────────────────────────── -->
+<section id="install">
+  <div class="container">
+    <h2 class="section-title">Get Started</h2>
+    <p class="section-sub">Install and run in two commands.</p>
+    <div class="install-grid fade-in">
+      <div class="install-card">
+        <h3>CLI</h3>
+        <code>pip install -e .<br/>ytmeta &lt;youtube-url&gt;</code>
+      </div>
+      <div class="install-card">
+        <h3>Web UI</h3>
+        <code>pip install -e .<br/>python web/server.py</code>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Footer ───────────────────────────────────────────────────────── -->
+<footer>
+  <div class="container">
+    ytmeta, built with yt-dlp, Rich, and Flask
+  </div>
+</footer>
+
+<script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add("visible"); });
+}, { threshold: 0.15 });
+document.querySelectorAll(".fade-in").forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>

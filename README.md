@@ -1,6 +1,6 @@
 # ytmeta
 
-CLI tool and web app to display extensive YouTube video metadata with rich terminal output and a dark-themed web UI.
+CLI tool and web app for viewing YouTube video metadata. Terminal output uses Rich; the web version has a dark UI.
 
 ## CLI
 
