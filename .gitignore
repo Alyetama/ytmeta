@@ -13,3 +13,4 @@ env/
 .nojekyll
 *.log
 /tmp/
+.DS_Store
