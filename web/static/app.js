@@ -237,8 +237,8 @@ function render(d) {
         <td>${esc(f.ext)}</td>
         <td>${esc(f.resolution || (f.vcodec === "none" ? "audio only" : "N/A"))}</td>
         <td>${f.fps ?? ""}</td>
-        <td>${esc(vc.length > 14 ? vc.slice(0, 14) + "..." : vc)}</td>
-        <td>${esc(ac.length > 14 ? ac.slice(0, 14) + "..." : ac)}</td>
+        <td>${esc(vc)}</td>
+        <td>${esc(ac)}</td>
         <td class="num">${size}</td>
         <td class="num">${tbr}</td>
       </tr>`;
