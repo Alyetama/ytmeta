@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 420" width="680" height="420">
+  <defs>
+    <style>
+      text { font-family: 'SF Mono', 'Cascadia Code', 'Fira Code', 'JetBrains Mono', 'Menlo', monospace; }
+      .bg { fill: #0d0d0f; }
+      .bar { fill: #141416; }
+      .dot-r { fill: #ef4444; }
+      .dot-y { fill: #eab308; }
+      .dot-g { fill: #22c55e; }
+      .prompt { fill: #22c55e; }
+      .url { fill: #eab308; }
+      .dim { fill: #71717a; }
+      .cyan { fill: #06b6d4; }
+      .blue { fill: #3b82f6; }
+      .green { fill: #22c55e; }
+      .yellow { fill: #eab308; }
+      .white { fill: #efeff1; }
+      .border { fill: none; stroke: #232328; stroke-width: 1; }
+      .panel-blue { fill: none; stroke: #3b82f6; stroke-width: 1; rx: 4; }
+      .panel-green { fill: none; stroke: #22c55e; stroke-width: 1; rx: 4; }
+      .panel-yellow { fill: none; stroke: #eab308; stroke-width: 1; rx: 4; }
+    </style>
+  </defs>
+
+  <!-- Background -->
+  <rect class="bg" width="680" height="420" rx="8"/>
+
+  <!-- Title bar -->
+  <rect class="bar" x="0" y="0" width="680" height="36" rx="8"/>
+  <rect class="bar" x="0" y="28" width="680" height="8"/>
+  <circle class="dot-r" cx="20" cy="18" r="5"/>
+  <circle class="dot-y" cx="38" cy="18" r="5"/>
+  <circle class="dot-g" cx="56" cy="18" r="5"/>
+  <text class="dim" x="80" y="22" font-size="11">terminal</text>
+
+  <!-- Command line -->
+  <text class="prompt" x="16" y="68" font-size="13">$</text>
+  <g>
+    <text class="white" x="30" y="68" font-size="13">ytmeta </text>
+    <text class="url" x="82" y="68" font-size="13">https://www.youtube.com/watch?v=dQw4w9WgXcQ</text>
+    <!-- Blinking cursor -->
+    <rect fill="#efeff1" x="410" y="57" width="7" height="14">
+      <animate attributeName="opacity" values="1;0;1" dur="1s" repeatCount="indefinite"/>
+    </rect>
+    <animate attributeName="opacity" values="0;1" dur="0.8s" fill="freeze"/>
+  </g>
+
+  <!-- Header line -->
+  <text class="dim" x="16" y="94" font-size="12" opacity="0">
+    ytmeta    Rick Astley - Never Gonna Give You Up (Official Video)
+    <animate attributeName="opacity" values="0;1" dur="0.3s" begin="1s" fill="freeze"/>
+  </text>
+
+  <!-- Overview panel -->
+  <g opacity="0">
+    <animate attributeName="opacity" values="0;1" dur="0.4s" begin="1.5s" fill="freeze"/>
+    <rect class="panel-blue" x="14" y="108" width="652" height="100"/>
+    <text class="dim" x="30" y="128" font-size="11">Channel</text>
+    <text class="white" x="140" y="128" font-size="11">Rick Astley</text>
+    <text class="dim" x="30" y="146" font-size="11">Upload Date</text>
+    <text class="white" x="140" y="146" font-size="11">October 25, 2009</text>
+    <text class="dim" x="30" y="164" font-size="11">Duration</text>
+    <text class="white" x="140" y="164" font-size="11">3m 33s</text>
+    <text class="dim" x="30" y="182" font-size="11">Video ID</text>
+    <text class="white" x="140" y="182" font-size="11">dQw4w9WgXcQ</text>
+    <text class="blue" x="30" y="122" font-size="10" font-weight="bold">Overview</text>
+  </g>
+
+  <!-- Statistics panel -->
+  <g opacity="0">
+    <animate attributeName="opacity" values="0;1" dur="0.4s" begin="2.2s" fill="freeze"/>
+    <rect class="panel-green" x="14" y="218" width="652" height="74"/>
+    <text class="dim" x="30" y="240" font-size="11">Views</text>
+    <text class="white" x="140" y="240" font-size="11">1796.6M</text>
+    <text class="dim" x="30" y="258" font-size="11">Likes</text>
+    <text class="white" x="140" y="258" font-size="11">19.3M</text>
+    <text class="dim" x="30" y="276" font-size="11">Comments</text>
+    <text class="white" x="140" y="276" font-size="11">2.4M</text>
+    <text class="green" x="30" y="234" font-size="10" font-weight="bold">Statistics</text>
+  </g>
+
+  <!-- Technical Details panel -->
+  <g opacity="0">
+    <animate attributeName="opacity" values="0;1" dur="0.4s" begin="2.9s" fill="freeze"/>
+    <rect class="panel-yellow" x="14" y="302" width="652" height="108"/>
+    <text class="dim" x="30" y="322" font-size="11">Resolution</text>
+    <text class="white" x="140" y="322" font-size="11">3840x2160</text>
+    <text class="dim" x="30" y="340" font-size="11">FPS</text>
+    <text class="white" x="140" y="340" font-size="11">25</text>
+    <text class="dim" x="30" y="358" font-size="11">Video Codec</text>
+    <text class="white" x="140" y="358" font-size="11">av01.0.12M.08</text>
+    <text class="dim" x="30" y="376" font-size="11">Audio Codec</text>
+    <text class="white" x="140" y="376" font-size="11">opus</text>
+    <text class="dim" x="30" y="394" font-size="11">Total Bitrate</text>
+    <text class="white" x="140" y="394" font-size="11">9154 kbps</text>
+    <text class="yellow" x="30" y="316" font-size="10" font-weight="bold">Technical Details</text>
+  </g>
+
+</svg>

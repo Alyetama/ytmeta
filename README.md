@@ -2,6 +2,10 @@
 
 CLI tool and web app for viewing YouTube video metadata. Terminal output uses Rich; the web version has a dark UI.
 
+<p align="center">
+  <img src="docs/static/mockup.svg" alt="ytmeta demo" width="680" />
+</p>
+
 ## CLI
 
 ```bash
