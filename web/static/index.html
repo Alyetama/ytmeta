@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ytmeta</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <header class="header">
+    <h1><span class="brand">ytmeta</span> YouTube Metadata</h1>
+    <p>Paste a YouTube URL to get extensive video metadata</p>
+  </header>
+
+  <div class="search-wrap">
+    <form class="search-form" id="searchForm">
+      <input
+        class="search-input"
+        id="urlInput"
+        type="text"
+        placeholder="https://www.youtube.com/watch?v=..."
+        autocomplete="off"
+        spellcheck="false"
+      />
+      <button class="search-btn" id="searchBtn" type="submit">Fetch</button>
+    </form>
+  </div>
+
+  <div class="status" id="status"></div>
+  <div class="results" id="results"></div>
+
+  <footer class="footer">ytmeta &mdash; YouTube metadata viewer</footer>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

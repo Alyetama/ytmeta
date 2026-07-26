@@ -1,0 +1,17 @@
+[project]
+name = "ytmeta"
+version = "0.1.0"
+description = "CLI tool to display extensive YouTube video metadata with rich terminal output"
+requires-python = ">=3.9"
+dependencies = [
+    "yt-dlp",
+    "rich",
+    "flask",
+]
+
+[project.scripts]
+ytmeta = "ytmeta.cli:main"
+
+[build-system]
+requires = ["setuptools>=68.0"]
+build-backend = "setuptools.build_meta"
