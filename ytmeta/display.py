@@ -112,6 +112,8 @@ def display_metadata(info: dict):
 
     # Format selection info
     fmt = info.get("format", "N/A")
+    if fmt and len(fmt) > 40:
+        fmt = fmt[:37] + "..."
     tech.add_row("Format", fmt)
 
     vcodec = info.get("vcodec", "N/A")
