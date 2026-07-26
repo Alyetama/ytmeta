@@ -199,6 +199,7 @@
 
     /* ── Terminal Mockup Animation ────────────────────────────────────── */
     .mockup-terminal { position: relative; overflow: hidden; }
+    .mockup-terminal .terminal-body { padding: 20px; }
 
     .mockup-line {
       opacity: 0;
@@ -215,9 +216,48 @@
     .mockup-panel {
       opacity: 0;
       transform: translateY(6px);
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 12px;
     }
     .mockup-panel.show {
       animation: panel-in 0.35s ease forwards;
+    }
+    .mockup-panel .mp-header {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 10px 16px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .mockup-panel .mp-body {
+      padding: 12px 16px;
+    }
+    .mockup-panel .mp-row {
+      display: flex;
+      padding: 5px 0;
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      line-height: 1.5;
+    }
+    .mockup-panel .mp-row + .mp-row {
+      border-top: 1px solid rgba(255,255,255,0.04);
+    }
+    .mockup-panel .mp-key {
+      width: 160px;
+      flex-shrink: 0;
+      color: var(--cyan);
+    }
+    .mockup-panel .mp-val {
+      color: var(--text);
+      white-space: nowrap;
     }
 
     @keyframes panel-in {
@@ -321,33 +361,43 @@
         <span class="terminal-dot g"></span>
         <span class="terminal-title">terminal</span>
       </div>
-<pre id="mockup-pre">
-<span class="mockup-line" data-delay="0"><span class="t-prompt">$</span> ytmeta <span class="t-url">https://www.youtube.com/watch?v=dQw4w9WgXcQ</span><span class="mockup-cursor"></span></span>
-<span class="mockup-line" data-delay="900"> </span>
-<span class="mockup-line" data-delay="1100">  <span class="t-dim">ytmeta</span>    Rick Astley - Never Gonna Give You Up (Official Video)</span>
-<span class="mockup-line" data-delay="1500"> </span>
-<span class="mockup-panel" data-delay="1800"><span class="t-blue">╭──────────────────────────── Overview ─────────────────────────────╮</span>
-<span class="t-blue">│</span> <span class="t-cyan">Channel</span>         Rick Astley                                    <span class="t-blue">│</span>
-<span class="t-blue">│</span> <span class="t-cyan">Upload Date</span>     October 25, 2009                               <span class="t-blue">│</span>
-<span class="t-blue">│</span> <span class="t-cyan">Duration</span>        3m 33s                                         <span class="t-blue">│</span>
-<span class="t-blue">│</span> <span class="t-cyan">Video ID</span>        dQw4w9WgXcQ                                    <span class="t-blue">│</span>
-<span class="t-blue">╰──────────────────────────────────────────────────────────────────╯</span></span>
-<span class="mockup-line" data-delay="2800"> </span>
-<span class="mockup-panel" data-delay="3000"><span class="t-green">╭─────────────────────── Statistics ───────────────────────────────╮</span>
-<span class="t-green">│</span> <span class="t-cyan">Views</span>           1796.6M                                        <span class="t-green">│</span>
-<span class="t-green">│</span> <span class="t-cyan">Likes</span>           19.3M                                          <span class="t-green">│</span>
-<span class="t-green">│</span> <span class="t-cyan">Comments</span>        2.4M                                           <span class="t-green">│</span>
-<span class="t-green">╰──────────────────────────────────────────────────────────────────╯</span></span>
-<span class="mockup-line" data-delay="4000"> </span>
-<span class="mockup-panel" data-delay="4200"><span class="t-yellow">╭─────────────────── Technical Details ────────────────────────────╮</span>
-<span class="t-yellow">│</span> <span class="t-cyan">Resolution</span>      3840x2160                                      <span class="t-yellow">│</span>
-<span class="t-yellow">│</span> <span class="t-cyan">FPS</span>             25                                             <span class="t-yellow">│</span>
-<span class="t-yellow">│</span> <span class="t-cyan">Video Codec</span>     av01.0.12M.08                                  <span class="t-yellow">│</span>
-<span class="t-yellow">│</span> <span class="t-cyan">Audio Codec</span>     opus                                           <span class="t-yellow">│</span>
-<span class="t-yellow">│</span> <span class="t-cyan">Total Bitrate</span>   9154 kbps                                      <span class="t-yellow">│</span>
-<span class="t-yellow">│</span> <span class="t-cyan">File Size</span>       232.5 MB                                       <span class="t-yellow">│</span>
-<span class="t-yellow">╰──────────────────────────────────────────────────────────────────╯</span></span>
-</pre>
+      <div class="terminal-body" id="mockup-pre">
+        <div class="mockup-line" data-delay="0"><span class="t-prompt">$</span> ytmeta <span class="t-url">https://www.youtube.com/watch?v=dQw4w9WgXcQ</span><span class="mockup-cursor"></span></div>
+        <div class="mockup-line" data-delay="900"> </div>
+        <div class="mockup-line" data-delay="1100">  <span class="t-dim">ytmeta</span>    Rick Astley - Never Gonna Give You Up (Official Video)</div>
+        <div class="mockup-line" data-delay="1500"> </div>
+
+        <div class="mockup-panel" data-delay="1800">
+          <div class="mp-header"><span class="t-blue">Overview</span></div>
+          <div class="mp-body">
+            <div class="mp-row"><span class="mp-key">Channel</span><span class="mp-val">Rick Astley</span></div>
+            <div class="mp-row"><span class="mp-key">Upload Date</span><span class="mp-val">October 25, 2009</span></div>
+            <div class="mp-row"><span class="mp-key">Duration</span><span class="mp-val">3m 33s</span></div>
+            <div class="mp-row"><span class="mp-key">Video ID</span><span class="mp-val">dQw4w9WgXcQ</span></div>
+          </div>
+        </div>
+
+        <div class="mockup-panel" data-delay="3000">
+          <div class="mp-header"><span class="t-green">Statistics</span></div>
+          <div class="mp-body">
+            <div class="mp-row"><span class="mp-key">Views</span><span class="mp-val">1796.6M</span></div>
+            <div class="mp-row"><span class="mp-key">Likes</span><span class="mp-val">19.3M</span></div>
+            <div class="mp-row"><span class="mp-key">Comments</span><span class="mp-val">2.4M</span></div>
+          </div>
+        </div>
+
+        <div class="mockup-panel" data-delay="4200">
+          <div class="mp-header"><span class="t-yellow">Technical Details</span></div>
+          <div class="mp-body">
+            <div class="mp-row"><span class="mp-key">Resolution</span><span class="mp-val">3840x2160</span></div>
+            <div class="mp-row"><span class="mp-key">FPS</span><span class="mp-val">25</span></div>
+            <div class="mp-row"><span class="mp-key">Video Codec</span><span class="mp-val">av01.0.12M.08</span></div>
+            <div class="mp-row"><span class="mp-key">Audio Codec</span><span class="mp-val">opus</span></div>
+            <div class="mp-row"><span class="mp-key">Total Bitrate</span><span class="mp-val">9154 kbps</span></div>
+            <div class="mp-row"><span class="mp-key">File Size</span><span class="mp-val">232.5 MB</span></div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <div style="height:24px"></div>
@@ -442,7 +492,7 @@ if (mockup) {
 }
 
 function startMockup() {
-  const els = document.querySelectorAll("#mockup-pre .mockup-line, #mockup-pre .mockup-panel");
+  const els = document.querySelectorAll("#mockup-pre > .mockup-line, #mockup-pre > .mockup-panel");
   els.forEach(el => {
     const delay = parseInt(el.dataset.delay || "0", 10);
     setTimeout(() => el.classList.add("show"), delay);
