@@ -1,7 +1,7 @@
 [project]
 name = "ytmeta"
 version = "0.1.0"
-description = "CLI tool to display extensive YouTube video metadata with rich terminal output"
+description = "CLI tool and web app for viewing extensive YouTube video metadata"
 requires-python = ">=3.9"
 dependencies = [
     "yt-dlp",
@@ -11,6 +11,9 @@ dependencies = [
 
 [project.scripts]
 ytmeta = "ytmeta.cli:main"
+
+[tool.setuptools]
+packages = ["ytmeta"]
 
 [build-system]
 requires = ["setuptools>=68.0"]

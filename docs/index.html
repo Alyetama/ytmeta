@@ -288,7 +288,7 @@
       <a href="#features">Features</a>
       <a href="#demo">Demo</a>
       <a href="#install">Install</a>
-      <a href="https://github.com/Alyetama/youtubeMetadata" target="_blank">GitHub</a>
+      <a href="https://github.com/Alyetama/ytmeta" target="_blank">GitHub</a>
     </div>
   </div>
 </nav>
@@ -299,7 +299,7 @@
     <h1><span class="hl">ytmeta</span><br/>YouTube Metadata Viewer</h1>
     <p>Video metadata from the terminal or your browser. Statistics, codecs, chapters, subtitles, tags, and more.</p>
     <div class="hero-btns">
-      <a href="https://github.com/Alyetama/youtubeMetadata" class="btn btn-primary" target="_blank">
+      <a href="https://github.com/Alyetama/ytmeta" class="btn btn-primary" target="_blank">
         <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
         View on GitHub
       </a>
@@ -312,12 +312,12 @@
 <section id="features">
   <div class="container">
     <h2 class="section-title">Features</h2>
-    <p class="section-sub">The terminal and web versions show the same metadata, just formatted differently.</p>
+    <p class="section-sub">The terminal and web versions cover the same ground, with some differences in detail and layout.</p>
     <div class="features">
       <div class="feature-card fade-in">
         <div class="feature-icon" style="background:rgba(59,130,246,0.12);color:var(--blue);">📊</div>
         <h3>Statistics</h3>
-        <p>Views, likes, comments, and estimated watch hours, formatted with K/M abbreviations.</p>
+        <p>Views, likes, and comments, abbreviated to K/M. Estimated watch hours too — in the Technical Details panel in the terminal, in Statistics on the web.</p>
       </div>
       <div class="feature-card fade-in">
         <div class="feature-icon" style="background:rgba(234,179,8,0.12);color:var(--yellow);">⚙️</div>
@@ -327,7 +327,7 @@
       <div class="feature-card fade-in">
         <div class="feature-icon" style="background:rgba(6,182,212,0.12);color:var(--cyan);">📝</div>
         <h3>Subtitles & Captions</h3>
-        <p>Manual subtitles and auto-generated captions listed by language with available formats.</p>
+        <p>Manual subtitles listed by language with their formats in the terminal, and the first 10 auto-caption languages before the rest are collapsed. The web UI lists languages only, with auto-captions as a count.</p>
       </div>
       <div class="feature-card fade-in">
         <div class="feature-icon" style="background:rgba(34,197,94,0.12);color:var(--green);">🎬</div>
@@ -337,7 +337,7 @@
       <div class="feature-card fade-in">
         <div class="feature-icon" style="background:rgba(239,68,68,0.12);color:var(--red);">🏷️</div>
         <h3>Tags</h3>
-        <p>All video tags displayed as colored pills.</p>
+        <p>All video tags — colored pills on the web, colored <span style="font-family:var(--mono)">#tag</span> text in the terminal.</p>
       </div>
       <div class="feature-card fade-in">
         <div class="feature-icon" style="background:rgba(217,70,239,0.12);color:var(--magenta);">🌐</div>
@@ -364,7 +364,8 @@
       <div class="terminal-body" id="mockup-pre">
         <div class="mockup-line" data-delay="0"><span class="t-prompt">$</span> ytmeta <span class="t-url">https://www.youtube.com/watch?v=dQw4w9WgXcQ</span><span class="mockup-cursor"></span></div>
         <div class="mockup-line" data-delay="900"> </div>
-        <div class="mockup-line" data-delay="1100">  <span class="t-dim">ytmeta</span>    Rick Astley - Never Gonna Give You Up (Official Video)</div>
+        <div class="mockup-line" data-delay="900">  <span class="t-dim">Fetching metadata for https://www.youtube.com/watch?v=dQw4w9WgXcQ...</span></div>
+        <div class="mockup-line" data-delay="1100">  <span class="t-dim">ytmeta</span>    Rick Astley - Never Gonna Give You Up (Official Video) (4K Remaster)</div>
         <div class="mockup-line" data-delay="1500"> </div>
 
         <div class="mockup-panel" data-delay="1800">
@@ -373,6 +374,7 @@
             <div class="mp-row"><span class="mp-key">Channel</span><span class="mp-val">Rick Astley</span></div>
             <div class="mp-row"><span class="mp-key">Upload Date</span><span class="mp-val">October 25, 2009</span></div>
             <div class="mp-row"><span class="mp-key">Duration</span><span class="mp-val">3m 33s</span></div>
+            <div class="mp-row"><span class="mp-key">Category</span><span class="mp-val">N/A</span></div>
             <div class="mp-row"><span class="mp-key">Video ID</span><span class="mp-val">dQw4w9WgXcQ</span></div>
           </div>
         </div>
@@ -380,7 +382,7 @@
         <div class="mockup-panel" data-delay="3000">
           <div class="mp-header"><span class="t-green">Statistics</span></div>
           <div class="mp-body">
-            <div class="mp-row"><span class="mp-key">Views</span><span class="mp-val">1796.6M</span></div>
+            <div class="mp-row"><span class="mp-key">Views</span><span class="mp-val">1797.5M</span></div>
             <div class="mp-row"><span class="mp-key">Likes</span><span class="mp-val">19.3M</span></div>
             <div class="mp-row"><span class="mp-key">Comments</span><span class="mp-val">2.4M</span></div>
           </div>
@@ -389,16 +391,28 @@
         <div class="mockup-panel" data-delay="4200">
           <div class="mp-header"><span class="t-yellow">Technical Details</span></div>
           <div class="mp-body">
+            <div class="mp-row"><span class="mp-key">Est. Watch Hours</span><span class="mp-val">106,354,952</span></div>
             <div class="mp-row"><span class="mp-key">Resolution</span><span class="mp-val">3840x2160</span></div>
             <div class="mp-row"><span class="mp-key">FPS</span><span class="mp-val">25</span></div>
+            <div class="mp-row"><span class="mp-key">Format</span><span class="mp-val">401 - 3840x2160 (2160p)+251 - audio o...</span></div>
             <div class="mp-row"><span class="mp-key">Video Codec</span><span class="mp-val">av01.0.12M.08</span></div>
             <div class="mp-row"><span class="mp-key">Audio Codec</span><span class="mp-val">opus</span></div>
             <div class="mp-row"><span class="mp-key">Total Bitrate</span><span class="mp-val">9154 kbps</span></div>
+            <div class="mp-row"><span class="mp-key">Video Bitrate</span><span class="mp-val">9025 kbps</span></div>
+            <div class="mp-row"><span class="mp-key">Audio Bitrate</span><span class="mp-val">129 kbps</span></div>
             <div class="mp-row"><span class="mp-key">File Size</span><span class="mp-val">232.5 MB</span></div>
+            <div class="mp-row"><span class="mp-key">Has Subtitles</span><span class="mp-val">Yes</span></div>
+            <div class="mp-row"><span class="mp-key">Has Chapters</span><span class="mp-val">No</span></div>
           </div>
         </div>
       </div>
     </div>
+
+    <p class="section-sub" style="margin:12px 0 0;font-size:0.82rem;">
+      Captured from a real run on 2026-07-28. Abridged: the full output also prints
+      Availability, Subtitles &amp; Captions, URLs, and an Available Formats table, then a
+      <span style="font-family:var(--mono)">Fetched at …</span> footer. View counts change daily.
+    </p>
 
     <div style="height:24px"></div>
 
@@ -412,15 +426,28 @@
 <pre>
 <span class="t-prompt">$</span> ytmeta <span class="t-flag">-j</span> <span class="t-url">https://www.youtube.com/watch?v=dQw4w9WgXcQ</span>
 {
-  <span class="t-green">"title"</span>: <span class="t-yellow">"Rick Astley - Never Gonna Give You Up"</span>,
+  <span class="t-green">"id"</span>: <span class="t-yellow">"dQw4w9WgXcQ"</span>,
+  <span class="t-green">"title"</span>: <span class="t-yellow">"Rick Astley - Never Gonna Give You Up (Official Video) (4K Remaster)"</span>,
   <span class="t-green">"channel"</span>: <span class="t-yellow">"Rick Astley"</span>,
-  <span class="t-green">"view_count"</span>: <span class="t-magenta">1796591936</span>,
-  <span class="t-green">"like_count"</span>: <span class="t-magenta">19278431</span>,
+  <span class="t-green">"upload_date"</span>: <span class="t-yellow">"20091025"</span>,
   <span class="t-green">"duration"</span>: <span class="t-magenta">213</span>,
-  <span class="t-green">"tags"</span>: [<span class="t-yellow">"rick astley"</span>, <span class="t-yellow">"Never Gonna Give You Up"</span>, ...]
+  <span class="t-green">"view_count"</span>: <span class="t-magenta">1797550107</span>,
+  <span class="t-green">"like_count"</span>: <span class="t-magenta">19282028</span>,
+  <span class="t-green">"comment_count"</span>: <span class="t-magenta">2400000</span>,
+  <span class="t-green">"resolution"</span>: <span class="t-yellow">"3840x2160"</span>,
+  <span class="t-green">"fps"</span>: <span class="t-magenta">25</span>,
+  <span class="t-green">"vcodec"</span>: <span class="t-yellow">"av01.0.12M.08"</span>,
+  <span class="t-green">"acodec"</span>: <span class="t-yellow">"opus"</span>,
+  <span class="t-green">"tags"</span>: [<span class="t-yellow">"rick astley"</span>, <span class="t-yellow">"Never Gonna Give You Up"</span>, <span class="t-yellow">"nggyu"</span>, ...]
 }
 </pre>
     </div>
+
+    <p class="section-sub" style="margin:12px 0 0;font-size:0.82rem;">
+      Excerpt. The real object has 73 top-level keys — this shows 13 of them, with values
+      from a run on 2026-07-28. <span style="font-family:var(--mono)">-j</span> omits only
+      the <span style="font-family:var(--mono)">formats</span> list.
+    </p>
   </div>
 </section>
 
@@ -448,7 +475,7 @@
 <section id="install">
   <div class="container">
     <h2 class="section-title">Get Started</h2>
-    <p class="section-sub">Install and run in two commands.</p>
+    <p class="section-sub">Clone the repo, then run. Not published to PyPI.</p>
     <div class="install-grid fade-in">
       <div class="install-card">
         <h3>CLI</h3>
@@ -459,6 +486,13 @@
         <code>pip install -e .<br/>python web/server.py</code>
       </div>
     </div>
+    <p class="section-sub" style="margin:16px 0 0;font-size:0.82rem;">
+      You can also run without installing, given
+      <span style="font-family:var(--mono)">yt-dlp</span>,
+      <span style="font-family:var(--mono)">rich</span>, and
+      <span style="font-family:var(--mono)">flask</span> on the path:
+      <span style="font-family:var(--mono)">python3 -m ytmeta.cli &lt;youtube-url&gt;</span>.
+    </p>
   </div>
 </section>
 
